@@ -1,0 +1,50 @@
+﻿push
+	git push <远程主机名> <本地分支名>:<远程分支名>
+	git push -f
+		将本地仓库回滚后的版本强制提交到远程分支
+tag
+	git tag -a <标签名> -m "<标签信息>"
+	git push origin <标签名>
+fetch
+	git fetch <远程主机名> <分支名> 
+	所取回的更新，在本地主机上要用”远程主机名/分支名”的形式读取。比如origin主机的master分支，就可以用origin/master读取。
+	git fetch origin branch1:branch2
+	使用远程branch1分支在本地创建branch2(但不会切换到该分支),如果本地不存在branch2分支, 则会自动创建一个新的branch2分支。
+	合并操作
+		git merge origin/master
+			或者
+		git rebase origin/master
+pull
+	git pull <远程主机名> <远程分支名>:<本地分支名>
+	相当于
+	git fetch origin master:tmp
+ 	git diff tmp 
+	git merge tmp
+merge
+	git merge dev
+		将分支dev合并到当前分支中，自动进行新的提交
+	git merge --no-commit maint
+		合并完后不自动提交
+reset
+	git reset --hard ORIG_HEAD
+		执行git pull和git merge操作时，git都会把执行操作前的HEAD放入ORIG_HEAD中，以防回滚操作。
+	git reset --hard [局部索引值]
+	git reset --hard HEAD^
+		注：一个^表示后退一步，n 个表示后退 n 步
+	git reset --hard HEAD~n
+		注：表示后退 n 步
+
+shortlog
+	git shortlog
+		-s 参数省略每次 commit 的注释，仅仅返回一个简单的统计。
+		-n 参数按照 commit 数量从多到少的顺利对用户进行排序
+
+暂存区
+	不想把整个工作空间的修改内容提交，加入暂存区就可以分段提交
+
+手动建立追踪关系
+--set-upstream
+git branch --set-upstream master origin/next
+上面命令指定master分支追踪origin/next分支。
+
+		
