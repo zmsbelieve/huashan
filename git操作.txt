@@ -25,6 +25,15 @@ merge
 		将分支dev合并到当前分支中，自动进行新的提交
 	git merge --no-commit maint
 		合并完后不自动提交
+	是对整个分支进行的合并，merge的时候会产生一个新的提交
+rebase
+	git rebase dev
+		将分支dev合并到当前分支中，并自动提交
+			如果有冲突，解决后需add 然后再执行 git rebase --continue
+	是对整个分支进行的合并,rebase不会产生新的提交
+cherry-pick
+	git cherry-pick 提交的id
+	只是将某一次提交合并到当前分支上，不会产生新的提交
 reset
 	git reset --hard ORIG_HEAD
 		执行git pull和git merge操作时，git都会把执行操作前的HEAD放入ORIG_HEAD中，以防回滚操作。
