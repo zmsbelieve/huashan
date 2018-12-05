@@ -13,3 +13,4 @@ testbranchb2
 remoteb2
 branchb2
 test1
+test2
