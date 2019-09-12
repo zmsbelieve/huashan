@@ -1,0 +1,6 @@
+https://monitor.sz.dsp.haplat.net:9001/dspApp/#/template/jndiManage/list   portal 测试
+https://dsp.chinanetcenter.com:9001/dspApp/#/equipment/topic/list  portal 正式
+http://172.16.17.71:8080/  jenkins
+ssh.snstack.cn  35068 移动跳板机   sz：  ssh root@monitor.sz.dsp.haplat.net -p 63501
+			    yz：  ssh root@58.220.94.226
+预发布环境portal地址：https://xmwddsp.test.wangsucloud.com:9002
