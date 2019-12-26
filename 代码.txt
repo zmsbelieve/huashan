@@ -1,0 +1,32 @@
+
+一个worker运行多个Executor 
+一个Executor可以运行多个task
+一个Executor只为一个component服务
+整个topology的任务数是不变的
+一个worker是一个topology的子集
+
+storm rebalance mytopology -n 5 -e blue-spout=3 -e yellow-bolt=10
+camus 每一条记录都有record和metainfo
+**********
+IBasicBolt自动处理acking机制
+**********
+gatherbolt analysisbolt
+asyncProcessBolt
+transactional.zookeeper.root 事务spout的信息存储在zookeeper上,保存当前topology的进度，如果重启，可以继续之前的进度执行
+trident 按批处理数据  对每一批数据分配一个transaction id 每个transaction都是严格有序的 2的数据没有处理完，3的数据是不会被处理的
+storm的默认配置参数在default.yaml文件中
+indicator
+ 	indicatorGroups→indicatorGroup→indicator 
+	验证合法性以及是否唯一
+	topicClient.addTopologies(topic,topologyName)为了验证从topology到kafka的http连接是否正常
+	把indicator的信息写入到zookeeper上 /topologies/${topologyName}/indicators
+					   /topologies/${topologyName}/indicators/${batchGroup} 组信息(Map对象)
+					   /topologies/${topologyName}/indicators/${batchGroup}/${indicatorName} indicator 信息(Map对象)
+	把kafka信息写入到zookeeper上 	   /topologies/${topologyName}/config/kafka_topic kafkaTopic(转换成Map)
+	stormRedis信息写入到zookeeper上    /topologies/${topologyName}/config/redis_cluster/${alias}#${clusterName}#{isDefault}
+	indicatorBuilder首先判断是不是storm fix	需要有一个默认的redis  stormRedis isdefault?	后续是跟redis集群获取reids node相关操作 coordinateBolt在这里进行初始化
+	StormRedisConfig 初始化了 deafultStormRedsis、stormRedisMap属性   	
+	每次启动都会把原来维护在zookeeper上的indicators信息删除掉
+build(topologyBuilder,kafkaTopic)
+      根据topic从zookeeper获取kafka的partition数量，再与topology设置的worker数量比较两者取小的作为kafkaSpout的Executors数
+      kafkaSpout "tx_stat" transaction信息保存在zookeeper上
